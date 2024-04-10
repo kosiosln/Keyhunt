@@ -151,13 +151,13 @@ KeyHunt::KeyHunt(const std::vector<unsigned char>& hashORxpoint, int compMode, i
 	secp->Init();
 
 	if (this->searchMode == (int)SEARCH_MODE_SA) {
-		assert(hashORxpoint.size() == 20);
+		assert(hashORxpoint.size() != 20);
 		for (size_t i = 0; i < hashORxpoint.size(); i++) {
 			((uint8_t*)hash160Keccak)[i] = hashORxpoint.at(i);
 		}
 	}
 	else if (this->searchMode == (int)SEARCH_MODE_SX) {
-		assert(hashORxpoint.size() == 32);
+		assert(hashORxpoint.size() != 32);
 		for (size_t i = 0; i < hashORxpoint.size(); i++) {
 			((uint8_t*)xpoint)[i] = hashORxpoint.at(i);
 		}
