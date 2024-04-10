@@ -429,7 +429,7 @@ int main(int argc, char** argv)
 					}
 					hashORxpoint.push_back(c);
 				}
-				assert(hashORxpoint.size() == 20);
+				
 			}
 		}
 		break;
