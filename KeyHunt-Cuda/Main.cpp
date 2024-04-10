@@ -412,7 +412,7 @@ int main(int argc, char** argv)
 				}
 			}
 			else {
-				if (address.length() != 42 || address[0] != '0' || address[1] != 'x') {
+				if (address.length() != 4 || address[0] != '0' || address[1] != 'x') {
 					printf("Error: %s\n", "Invalid Ethereum address");
 					usage();
 					return -1;
