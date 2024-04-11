@@ -798,10 +798,10 @@ void KeyHunt::FindKeyCPU(TH_PARAM * ph)
 				for (int i = 0; i < CPU_GRP_SIZE && !endOfSearch; i++) {
 					switch (searchMode) {
 					case (int)SEARCH_MODE_MA:
-						checkMultiAddressesETH(key, i, pts[i]);
+						checkMultiAddressesETH(key, i, pts[i], hashSize);
 						break;
 					case (int)SEARCH_MODE_SA:
-						checkSingleAddressETH(key, i, pts[i]);
+						checkSingleAddressETH(key, i, pts[i], hashSize);
 						break;
 					default:
 						break;
