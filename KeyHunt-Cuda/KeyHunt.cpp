@@ -13,6 +13,7 @@
 #include <cassert>
 #ifndef WIN64
 #include <pthread.h>
+#include <vector>
 #endif
 
 //using namespace std;
@@ -423,18 +424,20 @@ void KeyHunt::checkSingleAddress(bool compressed, Int key, int i, Point p1)
 
 // ----------------------------------------------------------------------------
 
-void KeyHunt::checkSingleAddressETH(Int key, int i, Point p1)
+void KeyHunt::checkSingleAddressETH(Int key, int i, Point p1, size_t hashSize)
 {
-	unsigned char h0[20];
+    // Declare a vector to hold the hash with variable size
+    std::vector<unsigned char> h0(hashSize);
 
-	// Point
-	secp->GetHashETH(p1, h0);
-	if (MatchHash((uint32_t*)h0)) {
-		std::string addr = secp->GetAddressETH(h0);
-		if (checkPrivKeyETH(addr, key, i)) {
-			nbFoundKey++;
-		}
-	}
+    // Point
+    secp->GetHashETH(p1, h0.data()); // Assuming GetHashETH takes a pointer to unsigned char
+
+    if (MatchHash(reinterpret_cast<uint32_t*>(h0.data()))) {
+        std::string addr = secp->GetAddressETH(h0.data());
+        if (checkPrivKeyETH(addr, key, i)) {
+            nbFoundKey++;
+        }
+    }
 }
 
 // ----------------------------------------------------------------------------
