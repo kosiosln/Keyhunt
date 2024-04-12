@@ -412,12 +412,12 @@ int main(int argc, char** argv)
 				}
 			}
 			else {
-				if (address.length() != 42 || address[0] != '0' || address[1] != 'x') {
+				if (address.length() < 2 || address[0] != '0' || address[1] != 'x') {
 					printf("Error: %s\n", "Invalid Ethereum address");
 					usage();
 					return -1;
 				}
-				address.erase(0, 2);
+				std::string prefix = address.substr(0, 10);
 				for (int i = 0; i < 40; i += 2) {
 					uint8_t c = 0;
 					for (size_t j = 0; j < 2; j++) {
