@@ -601,9 +601,13 @@ void Secp256K1::GetHash160(bool compressed, Point& pubKey, unsigned char* hash)
 
 }
 
-void Secp256K1::GetHashETH(Point& pubKey, unsigned char* hash)
+void Secp256K1::GetHashETH(const std::string& prefix, unsigned char* hash)
 {
-	keccak160(pubKey.x.bits64, pubKey.y.bits64, (uint32_t*)hash);
+    // Example: Hash the prefix string and public key coordinates using Keccak
+    std::string dataToHash = prefix + std::to_string(pubKey.x) + std::to_string(pubKey.y);
+
+    // Assuming keccak160 hashes the input data and stores the result in 'hash'
+    keccak160(reinterpret_cast<const uint64_t*>(dataToHash.data()), dataToHash.size(), reinterpret_cast<uint32_t*>(hash));
 }
 
 std::string Secp256K1::GetPrivAddress(bool compressed, Int& privKey)
