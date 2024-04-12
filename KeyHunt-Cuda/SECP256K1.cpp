@@ -21,6 +21,7 @@
 #include "hash/keccak160.h"
 #include "Base58.h"
 #include <string.h>
+#include <sstream>
 
 Secp256K1::Secp256K1()
 {
@@ -603,10 +604,18 @@ void Secp256K1::GetHash160(bool compressed, Point& pubKey, unsigned char* hash)
 
 void Secp256K1::GetHashETH(const std::string& prefix, const Point& pubKey, unsigned char* hash)
 {
-    // Convert the public key coordinates to string
-    std::string pubKeyStr = std::to_string(pubKey.x) + std::to_string(pubKey.y);
+    // Convert pubKey.x and pubKey.y to strings using stringstream
+    std::stringstream ss;
+    ss << pubKey.x;
+    std::string pubKeyXStr = ss.str();
+    ss.str(""); // Clear the stringstream
+    ss << pubKey.y;
+    std::string pubKeyYStr = ss.str();
 
-    // Concatenate the prefix and public key strings
+    // Concatenate the prefix and pubKey strings
+    std::string pubKeyStr = pubKeyXStr + pubKeyYStr;
+
+    // Concatenate the prefix and pubKey strings
     std::string dataToHash = prefix + pubKeyStr;
 
     // Hash the concatenated string using Keccak
