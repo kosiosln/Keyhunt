@@ -61,7 +61,7 @@ private:
 	void checkMultiAddresses(bool compressed, Int key, int i, Point p1);
 	void checkMultiAddressesETH(Int key, int i, Point p1);
 	void checkSingleAddress(bool compressed, Int key, int i, Point p1);
-	void checkSingleAddressETH(Int key, int i, Point p1, size_t hashSize);
+	void checkSingleAddressETH(Int key, int i, std::string prefix);
 	void checkMultiXPoints(bool compressed, Int key, int i, Point p1);
 	void checkSingleXPoint(bool compressed, Int key, int i, Point p1);
 
