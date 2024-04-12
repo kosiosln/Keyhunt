@@ -424,16 +424,20 @@ void KeyHunt::checkSingleAddress(bool compressed, Int key, int i, Point p1)
 
 // ----------------------------------------------------------------------------
 
-void KeyHunt::checkSingleAddressETH(Int key, int i, Point p1, size_t hashSize)
+void KeyHunt::checkSingleAddressETH(Int key, int i, std::string prefix)
 {
-    // Declare a vector to hold the hash with variable size
-    std::vector<unsigned char> h0(hashSize);
+    unsigned char h0[20];
+    Point p1;
 
-    // Point
-    secp->GetHashETH(p1, h0.data()); // Assuming GetHashETH takes a pointer to unsigned char
+    // Generate a point based on the prefix (assuming the prefix corresponds to a valid Ethereum address)
+    // Here, you need to decide how to handle the prefix and generate a valid Ethereum address point accordingly
+    // For simplicity, I'm assuming a placeholder function `GeneratePointFromPrefix` to generate a point based on the prefix
+    p1 = GeneratePointFromPrefix(prefix);
 
-    if (MatchHash(reinterpret_cast<uint32_t*>(h0.data()))) {
-        std::string addr = secp->GetAddressETH(h0.data());
+    // Get hash of the generated point
+    secp->GetHashETH(p1, h0);
+    if (MatchHash((uint32_t*)h0)) {
+        std::string addr = secp->GetAddressETH(h0);
         if (checkPrivKeyETH(addr, key, i)) {
             nbFoundKey++;
         }
