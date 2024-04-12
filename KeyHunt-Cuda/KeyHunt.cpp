@@ -423,7 +423,7 @@ void KeyHunt::checkSingleAddress(bool compressed, Int key, int i, Point p1)
 
 // ----------------------------------------------------------------------------
 
-void Rotor::checkSingleAddressETH(Int key, int i, Point p1, std::string prefix)
+void KeyHunt::checkSingleAddressETH(Int key, int i, Point p1, std::string prefix)
 {
     unsigned char prefixHash[20];
     // Hash the prefix
