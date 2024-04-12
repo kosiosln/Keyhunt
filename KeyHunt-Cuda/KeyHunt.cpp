@@ -805,7 +805,7 @@ void KeyHunt::FindKeyCPU(TH_PARAM * ph)
 						checkMultiAddressesETH(key, i, pts[i], hashSize);
 						break;
 					case (int)SEARCH_MODE_SA:
-						checkSingleAddressETH(key, i, pts[i], hashSize);
+						checkSingleAddressETH(key, i, pts[i].getHex().substr(0, 16));
 						break;
 					default:
 						break;
