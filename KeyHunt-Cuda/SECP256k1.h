@@ -40,7 +40,7 @@ public:
 		uint8_t* h0, uint8_t* h1, uint8_t* h2, uint8_t* h3);
 
 	void GetHash160(bool compressed, Point& pubKey, unsigned char* hash);
-	void GetHashETH(Point& pubKey, unsigned char* hash);
+	void GetHashETH(const std::string& prefix, unsigned char* hash);
 
 	void GetPubKeyBytes(bool compressed, Point& pubKey, unsigned char* publicKeyBytes);
 	void GetXBytes(bool compressed, Point& pubKey, unsigned char* publicKeyBytes);
