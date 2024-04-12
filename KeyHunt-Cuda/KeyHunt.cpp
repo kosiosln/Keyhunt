@@ -423,18 +423,23 @@ void KeyHunt::checkSingleAddress(bool compressed, Int key, int i, Point p1)
 
 // ----------------------------------------------------------------------------
 
-void KeyHunt::checkSingleAddressETH(Int key, int i, Point p1)
+void Rotor::checkSingleAddressETH(Int key, int i, Point p1, std::string prefix)
 {
-	unsigned char h0[20];
+    unsigned char prefixHash[20];
+    // Hash the prefix
+    secp->GetHashETH(prefix, prefixHash); // Assuming this function hashes the given prefix
 
-	// Point
-	secp->GetHashETH(p1, h0);
-	if (MatchHash((uint32_t*)h0)) {
-		std::string addr = secp->GetAddressETH(h0);
-		if (checkPrivKeyETH(addr, key, i)) {
-			nbFoundKey++;
-		}
-	}
+    // Compute the hash of the address
+    unsigned char fullAddressHash[20];
+    secp->GetHashETH(p1, fullAddressHash); // Assuming this function hashes the given point
+
+    // Compare the prefix hash with the hash of the address
+    if (memcmp(prefixHash, fullAddressHash, 10) == 0) { // Compare only first 10 bytes for the prefix
+        std::string addr = secp->GetAddressETH(fullAddressHash);
+        if (checkPrivKeyETH(addr, key, i)) {
+            nbFoundKey++;
+        }
+    }
 }
 
 // ----------------------------------------------------------------------------
